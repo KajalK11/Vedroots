@@ -1,0 +1,4 @@
+Client error '401 Unauthorized' for url 'https://router.huggingface.co/v1/chat/completions' (Request ID: Root=1-69d2a37c-312e6d352a1a123e4f7d47f3;4f6b6d60-3aab-4140-8494-ae368d98dc61)
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+Invalid username or password.

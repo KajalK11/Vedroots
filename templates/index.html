@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>VedaRoots – Plants</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --green-dark: #1a3a2a;
+      --green-mid: #2d5a3d;
+      --green-light: #4a8c5c;
+      --green-accent: #6bbf7a;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --cream: #f5f0e8;
+      --cream-dark: #ede5d4;
+      --text-dark: #1a2e20;
+      --text-mid: #3d5c45;
+      --text-light: #7a9e82;
+      --white: #ffffff;
+      --shadow: 0 8px 32px rgba(26, 58, 42, 0.15);
+      --shadow-hover: 0 16px 48px rgba(26, 58, 42, 0.25);
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(107, 191, 122, 0.2);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--green-dark);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .logo-text span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-weight: 500;
+      font-size: .95rem;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--green-accent);
+    }
+
+    .nav-links a.active {
+      font-weight: 600;
+    }
+
+    .nav-btn {
+      background: var(--green-accent);
+      color: var(--white);
+      border: none;
+      padding: .55rem 1.4rem;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--green-light);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 60%, var(--green-light) 100%);
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236bbf7a' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: .5;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      position: relative;
+    }
+
+    .page-header h1 span {
+      color: var(--gold-light);
+    }
+
+    .page-header p {
+      color: rgba(255, 255, 255, .75);
+      margin-top: .5rem;
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 1.8rem;
+      position: relative;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    .stat-label {
+      font-size: .78rem;
+      color: rgba(255, 255, 255, .6);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      display: flex;
+      gap: 0;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+      margin-right: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .sidebar-title::before {
+      content: '🌿';
+      font-size: .9rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: .7rem 1rem .7rem 2.6rem;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      background: var(--cream);
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--green-accent);
+    }
+
+    .search-box .search-icon {
+      position: absolute;
+      left: .8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: .95rem;
+      pointer-events: none;
+    }
+
+    .filter-section {
+      margin-bottom: 1.4rem;
+    }
+
+    .filter-label {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: .6rem;
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    .chip {
+      padding: .35rem .8rem;
+      border-radius: 50px;
+      font-size: .8rem;
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all .2s;
+      font-weight: 500;
+    }
+
+    .chip:hover,
+    .chip.active {
+      background: var(--green-accent);
+      border-color: var(--green-accent);
+      color: var(--white);
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: .6rem .9rem;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem;
+      background: var(--cream);
+      color: var(--text-dark);
+      outline: none;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--green-accent);
+    }
+
+    .clear-btn {
+      width: 100%;
+      padding: .6rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      margin-top: .5rem;
+    }
+
+    .clear-btn:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* ── PLANTS GRID ── */
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .results-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .results-count {
+      font-size: .9rem;
+      color: var(--text-light);
+    }
+
+    .results-count strong {
+      color: var(--green-dark);
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: .4rem;
+    }
+
+    .view-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--cream-dark);
+      background: var(--white);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: .9rem;
+      color: var(--text-light);
+      transition: all .2s;
+    }
+
+    .view-btn.active {
+      background: var(--green-accent);
+      border-color: var(--green-accent);
+      color: var(--white);
+    }
+
+    .plants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .plants-grid.list-view {
+      grid-template-columns: 1fr;
+    }
+
+    /* ── PLANT CARD ── */
+    .plant-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .plant-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img-placeholder {
+      font-size: 4rem;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: .8rem;
+      left: .8rem;
+      background: rgba(26, 58, 42, .85);
+      color: var(--gold-light);
+      font-size: .7rem;
+      font-weight: 600;
+      padding: .25rem .7rem;
+      border-radius: 50px;
+      backdrop-filter: blur(4px);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .card-actions {
+      position: absolute;
+      top: .8rem;
+      right: .8rem;
+      display: flex;
+      gap: .4rem;
+    }
+
+    .card-action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .9);
+      border: none;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: .85rem;
+      transition: all .2s;
+      backdrop-filter: blur(4px);
+      color: var(--text-mid);
+    }
+
+    .card-action-btn:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    .card-action-btn.bookmarked {
+      color: var(--gold);
+    }
+
+    .card-body {
+      padding: 1.2rem;
+    }
+
+    .card-common-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: .2rem;
+    }
+
+    .card-botanical {
+      font-size: .8rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: .8rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-bottom: .8rem;
+    }
+
+    .tag {
+      font-size: .72rem;
+      padding: .2rem .6rem;
+      border-radius: 50px;
+      font-weight: 500;
+    }
+
+    .tag-ayush {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .tag-type {
+      background: #fff8e1;
+      color: #f57f17;
+    }
+
+    .tag-cat {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .card-uses {
+      font-size: .83rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      padding: .8rem 1.2rem;
+      border-top: 1px solid var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-region {
+      font-size: .78rem;
+      color: var(--text-light);
+    }
+
+    .card-region span {
+      color: var(--green-accent);
+    }
+
+    .view-detail-btn {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--green-accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .view-detail-btn:hover {
+      color: var(--green-light);
+      text-decoration: underline;
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-light);
+      display: none;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    .no-results-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .no-results h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--green-dark);
+      margin-bottom: .5rem;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10, 25, 15, .6);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 820px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .3);
+      animation: slideUp .35s cubic-bezier(.16, 1, .3, 1);
+      margin: auto;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-hero {
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26, 58, 42, .8), transparent 60%);
+    }
+
+    .modal-hero-text {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.8rem;
+      right: 1.8rem;
+      z-index: 2;
+    }
+
+    .modal-common-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .modal-botanical {
+      font-size: .9rem;
+      color: rgba(255, 255, 255, .7);
+      font-style: italic;
+    }
+
+    .modal-actions-bar {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      z-index: 3;
+      display: flex;
+      gap: .5rem;
+    }
+
+    .modal-action {
+      height: 38px;
+      padding: 0 1rem;
+      border-radius: 50px;
+      border: 1.5px solid rgba(255, 255, 255, .4);
+      background: rgba(255, 255, 255, .15);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      backdrop-filter: blur(4px);
+      transition: all .2s;
+    }
+
+    .modal-action:hover {
+      background: rgba(255, 255, 255, .3);
+    }
+
+    .modal-action.bookmarked {
+      background: rgba(201, 168, 76, .4);
+      border-color: var(--gold-light);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      z-index: 3;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      border: 1.5px solid rgba(255, 255, 255, .4);
+      color: var(--white);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      backdrop-filter: blur(4px);
+      transition: background .2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, .35);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .modal-tag {
+      font-size: .8rem;
+      padding: .3rem .9rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .modal-tag.ayush {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .modal-tag.type {
+      background: #fff8e1;
+      color: #e65100;
+    }
+
+    .modal-tag.cat {
+      background: #e8eaf6;
+      color: #283593;
+    }
+
+    .modal-tag.region {
+      background: #fce4ec;
+      color: #880e4f;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      padding: .9rem 1rem;
+      border-left: 3px solid var(--green-accent);
+    }
+
+    .detail-key {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-light);
+      font-weight: 600;
+      margin-bottom: .25rem;
+    }
+
+    .detail-val {
+      font-size: .92rem;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .detail-section {
+      margin-bottom: 1.2rem;
+    }
+
+    .detail-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: .6rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .detail-section-title::before {
+      content: '';
+      width: 4px;
+      height: 1.1em;
+      background: var(--green-accent);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .detail-section p {
+      font-size: .9rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    /* share toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      background: var(--green-dark);
+      color: var(--white);
+      padding: .8rem 1.4rem;
+      border-radius: var(--radius-sm);
+      font-size: .88rem;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all .3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        width: 100%;
+        position: static;
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .plants-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+
+      nav {
+        padding: 0 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <!-- <nav>
+  <a class="logo" href="#">
+    <div class="logo-icon">🌿</div>
+    <span class="logo-text">Veda<span>Roots</span></span>
+  </a> -->
+  <!-- <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#" class="active">Plants</a></li>
+    <li><a href="#">Features</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="nav-btn">Login / Register</button> -->
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Medicinal <span>Plant Library</span></h1>
+    <p>Explore Ayurvedic healing wisdom — ancient plants, modern knowledge</p>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Plants</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">AYUSH Systems</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Diseases Covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Plant Types</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Search & Filter</div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search plant name…">
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label">By Category / Plant Type</div>
+        <div class="filter-chips" id="typeFilter">
+          <span class="chip active" data-type="all">All</span>
+          <span class="chip" data-type="Tree">Tree</span>
+          <span class="chip" data-type="Shrub">Shrub</span>
+          <span class="chip" data-type="Herb">Herb</span>
+          <span class="chip" data-type="Climber">Climber</span>
+          <span class="chip" data-type="Grass">Grass</span>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label">By Disease / Therapeutic Use</div>
+        <select class="filter-select" id="diseaseFilter">
+          <option value="all">All Diseases</option>
+          <option value="Diabetes">Diabetes</option>
+          <option value="Fever">Fever</option>
+          <option value="Digestive">Digestive Disorders</option>
+          <option value="Skin">Skin Diseases</option>
+          <option value="Respiratory">Respiratory</option>
+          <option value="Immunity">Immunity Booster</option>
+          <option value="Joint">Joint & Arthritis</option>
+          <option value="Liver">Liver Disorders</option>
+          <option value="Anti-inflammatory">Anti-inflammatory</option>
+          <option value="Anxiety">Anxiety & Stress</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label">By AYUSH System</div>
+        <select class="filter-select" id="ayushFilter">
+          <option value="all">All Systems</option>
+          <option value="Ayurveda">Ayurveda</option>
+          <option value="Siddha">Siddha</option>
+          <option value="Unani">Unani</option>
+          <option value="Homeopathy">Homeopathy</option>
+          <option value="Yoga">Yoga & Naturopathy</option>
+        </select>
+      </div>
+
+      <button class="clear-btn" onclick="clearFilters()">✕ Clear All Filters</button>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="results-bar">
+        <div class="results-count">Showing <strong id="countDisplay">10</strong> plants</div>
+        <div class="view-toggle">
+          <button class="view-btn active" onclick="setView('grid',this)" title="Grid view">⊞</button>
+          <button class="view-btn" onclick="setView('list',this)" title="List view">☰</button>
+        </div>
+      </div>
+
+      <div class="plants-grid" id="plantsGrid"></div>
+      <div class="no-results" id="noResults">
+        <div class="no-results-icon">🌱</div>
+        <h3>No Plants Found</h3>
+        <p>Try adjusting your search or filters.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <div class="modal-hero" id="modalHero">
+        <img id="modalImage"
+          style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; display:none;" />
+        <span id="modalEmoji" style="position:relative;z-index:1"></span>
+        <button class="modal-close" onclick="closeModalDirect()">✕</button>
+        <div class="modal-actions-bar">
+          <button class="modal-action" id="modalBookmarkBtn" onclick="toggleModalBookmark()">🔖 Bookmark</button>
+          <button class="modal-action" onclick="shareCurrentPlant()">🔗 Share Link</button>
+        </div>
+        <div class="modal-hero-text">
+          <div class="modal-common-name" id="modalCommonName"></div>
+          <div class="modal-botanical" id="modalBotanical"></div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="detail-grid" id="detailGrid"></div>
+        <div id="modalSections"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const plants = [
+      {
+        id: 1, emoji: '',
+        image: "",
+        model: "/static/models/tulsi.glb",
+        name: 'Tulsi', botanical_name: 'Ocimum sanctum', family: 'Lamiaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Immunity, Respiratory',
+        category: 'Herb', part_used: 'Leaves, Seeds, Roots',
+        uses: 'Boosts immunity, treats cold, cough, fever, stress. Acts as adaptogen and antibacterial agent. Useful in respiratory disorders and skin diseases.',
+        description: 'Fresh leaf juice, decoction (kadha), powder, essential oil. Consume 10-15 fresh leaves daily or boil in water with honey.',
+        region: 'Indian Subcontinent', disease_tags: ['Fever', 'Respiratory', 'Immunity']
+      },
+      {
+        id: 2, emoji: '',
+        image: "",
+        model: "/static/models/ashwagandha.glb",
+        name: 'Ashwagandha', botanical_name: 'Withania somnifera', family: 'Solanaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Anxiety & Stress, Immunity',
+        category: 'Shrub', part_used: 'Root, Leaves',
+        uses: 'Reduces anxiety and stress, improves energy, stamina and concentration. Used in managing inflammation and arthritis pain. Enhances male fertility.',
+        description: 'Root powder (churna) mixed with warm milk and honey. Available as capsules and extracts. 3–6 g powder per day recommended.',
+        region: 'India, North Africa', disease_tags: ['Anxiety', 'Immunity', 'Joint']
+      },
+      {
+        id: 3, emoji: '',
+        image: "",
+        model: "/static/models/neem.glb",
+        name: 'Neem', botanical_name: 'Azadirachta indica', family: 'Meliaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Skin Diseases, Anti-inflammatory',
+        category: 'Tree', part_used: 'Leaves, Bark, Seeds, Oil',
+        uses: 'Treats skin diseases, acne, eczema, and fungal infections. Acts as natural insecticide and antiseptic. Purifies blood and improves liver function.',
+        description: 'Leaf paste for topical use, decoction for drinking, neem oil for external application. Neem twigs used as dental cleanser.',
+        region: 'Indian Subcontinent', disease_tags: ['Skin', 'Liver', 'Anti-inflammatory']
+      },
+      {
+        id: 4, emoji: '',
+        image: "",
+        model: "/static/models/turmeric.glb",
+        name: 'Turmeric', botanical_name: 'Curcuma longa', family: 'Zingiberaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Anti-inflammatory, Digestive',
+        category: 'Herb', part_used: 'Rhizome (Root)',
+        uses: 'Powerful anti-inflammatory and antioxidant. Helps in joint pain, arthritis, digestive problems, and wound healing. Curcumin shown to reduce cancer risk.',
+        description: 'Golden milk (turmeric+milk+pepper), spice in food, curcumin supplements. 1 tsp powder in warm milk daily.',
+        region: 'South and Southeast Asia', disease_tags: ['Anti-inflammatory', 'Digestive', 'Joint']
+      },
+      {
+        id: 5, emoji: '',
+        image: "",
+        model: "/static/models/aloe_vera.glb",
+        name: 'Aloe Vera', botanical_name: 'Aloe barbadensis miller', family: 'Asphodelaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Skin Diseases, Digestive',
+        category: 'Herb', part_used: 'Gel (Leaf interior)',
+        uses: 'Treats burns, skin irritation, acne, and wounds. Improves digestion and relieves constipation. Lowers blood sugar in diabetics.',
+        description: 'Fresh gel applied topically. Juice consumed orally (30 ml daily). Available as cream, lotion, and supplement capsules.',
+        region: 'Arabian Peninsula, Africa', disease_tags: ['Skin', 'Digestive', 'Diabetes']
+      },
+      {
+        id: 6, emoji: '',
+        image:"",
+        model: "/static/models/giloy.glb",
+        name: 'Giloy', botanical_name: 'Tinospora cordifolia', family: 'Menispermaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Immunity, Fever',
+        category: 'Climber', part_used: 'Stem, Root, Leaves',
+        uses: 'Potent immunomodulator and anti-pyretic. Treats chronic fever, dengue, malaria. Reduces blood sugar and uric acid. Detoxifies the body.',
+        description: 'Stem decoction or juice (20–30 ml). Powder with honey. Giloy kadha boiled with tulsi for fever management.',
+        region: 'India, Myanmar, Sri Lanka', disease_tags: ['Fever', 'Immunity', 'Diabetes']
+      },
+      {
+        id: 7, emoji: '',
+        image: "",
+        model: "/static/models/shatavari.glb",
+        name: 'Shatavari', botanical_name: 'Asparagus racemosus', family: 'Asparagaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Immunity, Digestive',
+        category: 'Climber', part_used: 'Root, Leaves',
+        uses: 'Supports female reproductive health, enhances lactation, balances hormones. Boosts immunity and digestion. Acts as adaptogen and anti-stress agent.',
+        description: 'Root powder with warm milk and ghee. Syrup or tablet form available. 3–5 g powder twice daily.',
+        region: 'India, Sri Lanka, Himalayas', disease_tags: ['Immunity', 'Digestive', 'Anxiety']
+      },
+      {
+        id: 8, emoji: '',
+        image: "",
+        model: "/static/models/brahmi.glb",
+        name: 'Brahmi', botanical_name: 'Bacopa monnieri', family: 'Plantaginaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Anxiety & Stress',
+        category: 'Herb', part_used: 'Whole Plant',
+        uses: 'Enhances memory and cognitive function. Reduces anxiety, depression and mental fatigue. Treats epilepsy and neurological disorders. Used in ADHD management.',
+        description: 'Fresh juice (10 ml), powder with honey, brahmi ghee, or capsules. Brahmi oil for scalp massage to boost memory.',
+        region: 'India, Nepal, China', disease_tags: ['Anxiety']
+      },
+      {
+        id: 9, emoji: '',
+        image: "",
+        model: "/static/models/karela.glb",
+        name: 'Karela', botanical_name: 'Momordica charantia', family: 'Cucurbitaceae',
+        ayush_system: 'Siddha', therapeutic_category: 'Diabetes',
+        category: 'Climber', part_used: 'Fruit, Leaves, Seeds',
+        uses: 'Excellent hypoglycaemic agent — controls blood sugar in Type 2 diabetes. Treats skin diseases, liver problems, and parasitic infections. Boosts immunity.',
+        description: 'Raw fruit juice (50–100 ml on empty stomach), cooked as vegetable, capsule extract. 3 to 4 times weekly.',
+        region: 'Tropical Asia, Africa', disease_tags: ['Diabetes', 'Liver', 'Skin']
+      },
+      {
+        id: 10, emoji: '',
+        image: "",
+        model: "/static/models/arjuna.glb",
+        name: 'Arjuna', botanical_name: 'Terminalia arjuna', family: 'Combretaceae',
+        ayush_system: 'Ayurveda', therapeutic_category: 'Respiratory, Anti-inflammatory',
+        category: 'Tree', part_used: 'Bark',
+        uses: 'Strengthens heart muscles, treats hypertension, angina, and congestive heart failure. Anti-inflammatory and astringent properties. Useful in respiratory disorders.',
+        description: 'Bark decoction boiled in milk (Arjuna Ksheerapaka). Bark powder 3–5 g with honey or warm water twice daily.',
+        region: 'India (Himalayan foothills, river banks)', disease_tags: ['Respiratory', 'Anti-inflammatory']
+      }
+    ];
+
+    let bookmarks = JSON.parse(localStorage.getItem('vr_bookmarks') || '[]');
+    let currentPlant = null;
+    let currentView = 'grid';
+    let activeFilters = { search: '', type: 'all', disease: 'all', ayush: 'all' };
+
+    // ── RENDER CARDS ──
+    function renderCards(data) {
+      const grid = document.getElementById('plantsGrid');
+      const noRes = document.getElementById('noResults');
+      document.getElementById('countDisplay').textContent = data.length;
+
+      if (!data.length) {
+        grid.innerHTML = '';
+        noRes.classList.add('show');
+        return;
+      }
+      noRes.classList.remove('show');
+
+      grid.innerHTML = data.map(p => {
+        const bk = bookmarks.includes(p.id);
+        const safeImg = p.image ? p.image.trim().split(/\s+/)[0] : '';
+        return `
+    <div class="plant-card" onclick="openModal(${p.id})">
+      <div class="card-img">
+        ${safeImg ? `<img src="${safeImg}" alt="${p.name}" crossorigin="anonymous" referrerpolicy="no-referrer" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1466692476877-361ad3152a55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw3fHxwbGFudHxlbnwwfHx8fDE3MTI5ODExNjZ8MA&ixlib=rb-4.0.3&q=80&w=400';">` : ''}
+        <span class="card-img-placeholder" style="position:relative; z-index:0; ${safeImg ? 'display:none;' : ''}">${p.emoji}</span>
+        <span class="card-badge" style="z-index:2;">${p.ayush_system}</span>
+        <div class="card-actions" onclick="event.stopPropagation()" style="z-index:2; position:relative;">
+          <button class="card-action-btn ${bk ? 'bookmarked' : ''}" onclick="toggleBookmark(${p.id}, this)" title="Bookmark">
+            ${bk ? '&#128214;' : '&#128215;'}
+          </button>
+          <button class="card-action-btn" onclick="sharePlant(${p.id})" title="Share">&#8599;</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-common-name">${p.name}</div>
+        <div class="card-botanical">${p.botanical_name}</div>
+        <div class="card-tags">
+          <span class="tag tag-ayush">${p.ayush_system}</span>
+          <span class="tag tag-type">${p.category}</span>
+          <span class="tag tag-cat">${p.therapeutic_category.split(',')[0].trim()}</span>
+        </div>
+        <div class="card-uses">${p.uses}</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-region">&#127757; <span>${p.region}</span></span>
+        <button class="view-detail-btn">View Details &#8594;</button>
+      </div>
+    </div>`;
+      }).join('');
+    }
+
+    // ── FILTER LOGIC ──
+    function applyFilters() {
+      let data = plants;
+      const s = activeFilters.search.toLowerCase();
+      if (s) data = data.filter(p =>
+        p.name.toLowerCase().includes(s) ||
+        p.botanical_name.toLowerCase().includes(s) ||
+        p.family.toLowerCase().includes(s)
+      );
+      if (activeFilters.type !== 'all') data = data.filter(p => p.category === activeFilters.type);
+      if (activeFilters.disease !== 'all') data = data.filter(p => p.disease_tags.some(t => t.includes(activeFilters.disease)));
+      if (activeFilters.ayush !== 'all') data = data.filter(p => p.ayush_system === activeFilters.ayush);
+      renderCards(data);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', e => {
+      activeFilters.search = e.target.value;
+      applyFilters();
+    });
+    document.getElementById('diseaseFilter').addEventListener('change', e => {
+      activeFilters.disease = e.target.value;
+      applyFilters();
+    });
+    document.getElementById('ayushFilter').addEventListener('change', e => {
+      activeFilters.ayush = e.target.value;
+      applyFilters();
+    });
+
+    document.querySelectorAll('#typeFilter .chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#typeFilter .chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeFilters.type = chip.dataset.type;
+        applyFilters();
+      });
+    });
+
+    function clearFilters() {
+      activeFilters = { search: '', type: 'all', disease: 'all', ayush: 'all' };
+      document.getElementById('searchInput').value = '';
+      document.getElementById('diseaseFilter').value = 'all';
+      document.getElementById('ayushFilter').value = 'all';
+      document.querySelectorAll('#typeFilter .chip').forEach(c => c.classList.remove('active'));
+      document.querySelector('#typeFilter .chip[data-type="all"]').classList.add('active');
+      applyFilters();
+    }
+
+    // ── VIEW TOGGLE ──
+    function setView(v, btn) {
+      currentView = v;
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const grid = document.getElementById('plantsGrid');
+      if (v === 'list') grid.classList.add('list-view');
+      else grid.classList.remove('list-view');
+    }
+
+    // ── BOOKMARK ──
+    function toggleBookmark(id, btn) {
+      const idx = bookmarks.indexOf(id);
+      if (idx === -1) {
+        bookmarks.push(id);
+        btn.classList.add('bookmarked');
+        btn.textContent = '&#128214;';
+        showToast('&#128214; Plant bookmarked!');
+      } else {
+        bookmarks.splice(idx, 1);
+        btn.classList.remove('bookmarked');
+        btn.textContent = '&#128215;';
+        showToast('Bookmark removed');
+      }
+      localStorage.setItem('vr_bookmarks', JSON.stringify(bookmarks));
+    }
+
+    function toggleModalBookmark() {
+      if (!currentPlant) return;
+      const btn = document.getElementById('modalBookmarkBtn');
+      const idx = bookmarks.indexOf(currentPlant.id);
+      if (idx === -1) {
+        bookmarks.push(currentPlant.id);
+        btn.classList.add('bookmarked');
+        btn.textContent = '&#128214; Bookmarked';
+        showToast('&#128214; Plant bookmarked!');
+      } else {
+        bookmarks.splice(idx, 1);
+        btn.classList.remove('bookmarked');
+        btn.textContent = '&#128214; Bookmark';
+        showToast('Bookmark removed');
+      }
+      localStorage.setItem('vr_bookmarks', JSON.stringify(bookmarks));
+      applyFilters();
+    }
+
+    // ── SHARE ──
+    function sharePlant(id) {
+      const p = plants.find(x => x.id === id);
+      const url = `${location.href.split('?')[0]}?plant=${id}`;
+      navigator.clipboard.writeText(url).catch(() => { });
+      showToast(`&#8599; Link for "${p.name}" copied!`);
+    }
+
+    function shareCurrentPlant() {
+      if (currentPlant) sharePlant(currentPlant.id);
+    }
+
+    // ── MODAL ──
+    function openModal(id) {
+      const p = plants.find(x => x.id === id);
+      currentPlant = p;
+
+      document.getElementById('modalEmoji').textContent = p.emoji;
+      document.getElementById('modalEmoji').style.display = 'inline';
+
+      const mImg = document.getElementById('modalImage');
+      const safeImg = p.image ? p.image.trim().split(/\s+/)[0] : '';
+
+      if (mImg) {
+        if (safeImg) {
+          mImg.src = safeImg;
+          mImg.referrerPolicy = "no-referrer";
+          mImg.style.display = 'block';
+          mImg.onerror = function () {
+            this.onerror = null;
+            this.src = "https://images.unsplash.com/photo-1466692476877-361ad3152a55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw3fHxwbGFudHxlbnwwfHx8fDE3MTI5ODExNjZ8MA&ixlib=rb-4.0.3&q=80&w=800";
+          };
+          document.getElementById('modalEmoji').style.display = 'none';
+        } else {
+          mImg.style.display = 'none';
+        }
+      }
+
+      document.getElementById('modalCommonName').textContent = p.name;
+      document.getElementById('modalBotanical').textContent = p.botanical_name + ' · ' + p.family;
+
+      // bookmark btn state
+      const bkBtn = document.getElementById('modalBookmarkBtn');
+      bkBtn.textContent = bookmarks.includes(p.id) ? '&#128214; Bookmarked' : '&#128214; Bookmark';
+      bkBtn.classList.toggle('bookmarked', bookmarks.includes(p.id));
+
+      // tags
+      document.getElementById('modalTags').innerHTML = `
+    <span class="modal-tag ayush">${p.ayush_system}</span>
+    <span class="modal-tag type">${p.category}</span>
+    <span class="modal-tag cat">${p.therapeutic_category}</span>
+    <span class="modal-tag region">&#127757; ${p.region}</span>
+  `;
+
+      // detail grid
+      const gridFields = [
+        ['Botanical Name', p.botanical_name],
+        ['Family', p.family],
+        ['AYUSH System', p.ayush_system],
+        ['Plant Type', p.category],
+        ['Plant Part Used', p.part_used],
+        ['Native Region', p.region],
+      ];
+      document.getElementById('detailGrid').innerHTML = gridFields.map(([k, v]) => `
+    <div class="detail-item">
+      <div class="detail-key">${k}</div>
+      <div class="detail-val">${v}</div>
+    </div>`).join('');
+
+      // sections
+      document.getElementById('modalSections').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-section-title">Therapeutic Category</div>
+      <p>${p.therapeutic_category}</p>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Major Medicinal Uses</div>
+      <p>${p.uses}</p>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Preparation Method</div>
+      <p>${p.description}</p>
+    </div>
+  `;
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // update URL
+      history.pushState({ plant: id }, '', `?plant=${id}`);
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+    }
+    function closeModalDirect() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+      currentPlant = null;
+      history.pushState({}, '', location.pathname);
+    }
+
+    // ── TOAST ──
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ── SHAREABLE LINK ON LOAD ──
+    function checkURLParam() {
+      const id = parseInt(new URLSearchParams(location.search).get('plant'));
+      if (id) openModal(id);
+    }
+
+    // ── INIT ──
+    renderCards(plants);
+    checkURLParam();
+    // ── CHATBOT UI & OPENAI INTEGRATION ──
+    const chatHTML = `
+    <style>
+      #chat-widget {
+        position: fixed; bottom: 25px; right: 25px; width: 340px; height: 500px;
+        background: var(--white); box-shadow: var(--shadow-hover);
+        border-radius: 20px; overflow: hidden; z-index: 1000;
+        display: flex; flex-direction: column;
+        transform: translateY(calc(100% - 65px));
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: 'DM Sans', sans-serif;
+      }
+      #chat-widget.open {
+        transform: translateY(0);
+      }
+      #chat-header {
+        background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+        color: #fff; padding: 16px 20px; font-weight: 600; font-size: 1.05rem;
+        cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        border-bottom: 2px solid var(--green-accent);
+      }
+      .chat-controls button {
+        background: transparent; border: none; color: white; cursor: pointer;
+        font-size: 1.1rem; margin-left: 10px; transition: opacity 0.2s;
+      }
+      .chat-controls button:hover { opacity: 0.7; }
+      #chat-body {
+        flex: 1; padding: 15px; overflow-y: auto; background: var(--cream);
+        display: flex; flex-direction: column; gap: 10px;
+      }
+      .chat-msg {
+        max-width: 85%; padding: 10px 14px; border-radius: 16px;
+        font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap;
+      }
+      .chat-msg.user {
+        align-self: flex-end; background: var(--green-accent); color: white;
+        border-bottom-right-radius: 4px;
+      }
+      .chat-msg.bot {
+        align-self: flex-start; background: white; color: var(--text-dark);
+        border-bottom-left-radius: 4px; border: 1px solid var(--cream-dark);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      }
+      .chat-suggestions {
+        display: flex; gap: 6px; overflow-x: auto; padding: 8px 15px;
+        background: white; border-top: 1px solid var(--cream-dark);
+      }
+      .chat-suggestions::-webkit-scrollbar { display: none; }
+      .suggestion-chip {
+        white-space: nowrap; font-size: 0.75rem; padding: 6px 10px;
+        border-radius: 20px; border: 1px solid var(--green-accent);
+        color: var(--green-dark); background: transparent; cursor: pointer;
+        transition: all 0.2s;
+      }
+      .suggestion-chip:hover {
+        background: var(--green-accent); color: white;
+      }
+      #chat-footer {
+        display: flex; align-items: center; padding: 12px 15px;
+        background: #fff; border-top: 1px solid var(--cream-dark);
+      }
+      #chat-input {
+        flex: 1; padding: 10px 14px; border-radius: 20px;
+        border: 1px solid var(--cream-dark); outline: none;
+        background: var(--cream); font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem; transition: border-color 0.2s;
+      }
+      #chat-input:focus { border-color: var(--green-accent); }
+      #chat-send, #chat-mic {
+        background: var(--green-dark); color: white; border: none;
+        width: 36px; height: 36px; border-radius: 50%;
+        margin-left: 8px; cursor: pointer; display: grid; place-items: center;
+        transition: transform 0.2s, background 0.2s;
+      }
+      #chat-send:hover, #chat-mic:hover { transform: scale(1.08); background: var(--green-mid); }
+      #chat-mic.listening { background: #e74c3c; animation: pulse 1s infinite alternate; }
+      
+      @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+      .typing {
+        display: none; align-self: flex-start; background: transparent;
+        color: var(--text-light); font-size: 0.8rem; font-style: italic; padding: 0 10px 10px;
+      }
+    </style>
+    <div id="chat-widget">
+      <div id="chat-header">
+        <span>🌿 Ayurvedic AI Assistant</span>
+        <div class="chat-controls">
+          <button id="chat-clear" title="Clear Chat">🗑️</button>
+          <button id="chat-toggle">▲</button>
+        </div>
+      </div>
+      <div id="chat-body">
+        <div class="chat-msg bot">Namaste! I am your AI Ayurvedic assistant. How can I help you discover the healing power of medicinal plants today?</div>
+      </div>
+      <div class="typing" id="typing-indicator">Bot is typing...</div>
+      <div class="chat-suggestions">
+        <button class="suggestion-chip">Best plants for immunity</button>
+        <button class="suggestion-chip">Skin remedies</button>
+        <button class="suggestion-chip">Stress relief herbs</button>
+      </div>
+      <div id="chat-footer">
+        <input type="text" id="chat-input" placeholder="Type your condition or herb...">
+        <button id="chat-mic" title="Voice Input">🎤</button>
+        <button id="chat-send" title="Send (Enter)">➤</button>
+      </div>
+    </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', chatHTML);
+
+    const chatWidget = document.getElementById('chat-widget');
+    const chatHeader = document.getElementById('chat-header');
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatClear = document.getElementById('chat-clear');
+    const chatBody = document.getElementById('chat-body');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    const chatMic = document.getElementById('chat-mic');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const suggestionChips = document.querySelectorAll('.suggestion-chip');
+
+    let chatOpen = false;
+
+    // Load History
+    const history = JSON.parse(localStorage.getItem('vr_chat_history') || '[]');
+    if (history.length > 0) {
+      chatBody.innerHTML = '';
+      history.forEach(m => addMessage(m.text, m.isUser, false));
+    }
+
+    function saveHistory() {
+      const msgs = Array.from(chatBody.querySelectorAll('.chat-msg')).map(el => ({
+        text: el.textContent,
+        isUser: el.classList.contains('user')
+      }));
+      localStorage.setItem('vr_chat_history', JSON.stringify(msgs));
+    }
+
+    chatHeader.addEventListener('click', (e) => {
+      if (e.target.closest('.chat-controls')) return;
+      chatOpen = !chatOpen;
+      chatWidget.classList.toggle('open', chatOpen);
+      chatToggle.textContent = chatOpen ? '▼' : '▲';
+    });
+    chatToggle.addEventListener('click', () => chatHeader.click());
+
+    chatClear.addEventListener('click', () => {
+      chatBody.innerHTML = '<div class="chat-msg bot">Chat history cleared. How can I help you?</div>';
+      localStorage.removeItem('vr_chat_history');
+    });
+
+    function addMessage(msg, isUser, save = true) {
+      const div = document.createElement('div');
+      div.className = 'chat-msg ' + (isUser ? 'user' : 'bot');
+      div.textContent = msg;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      if (save) saveHistory();
+    }
+
+    async function handleChat(queryText = '') {
+      const q = queryText || chatInput.value.trim();
+      if (!q) return;
+
+      if (!chatOpen) chatHeader.click();
+
+      addMessage(q, true);
+      chatInput.value = '';
+      typingIndicator.style.display = 'block';
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      try {
+        const res = await fetch('http://127.0.0.1:5000/api/chat?q=' + encodeURIComponent(q));
+        const data = await res.json();
+        typingIndicator.style.display = 'none';
+        addMessage(data.message || "I'm having trouble retrieving that right now.", false);
+      } catch (err) {
+        typingIndicator.style.display = 'none';
+        addMessage("Network Error: Could not connect to internal AI server.", false);
+      }
+    }
+
+    chatSend.addEventListener('click', () => handleChat());
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleChat();
+    });
+
+    suggestionChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        handleChat(chip.textContent);
+      });
+    });
+
+    // Voice Dictation (Web Speech API)
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      let isRecording = false;
+
+      recognition.onstart = () => {
+        isRecording = true;
+        chatMic.classList.add('listening');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        chatInput.value = transcript;
+        handleChat();
+      };
+
+      recognition.onerror = () => {
+        isRecording = false;
+        chatMic.classList.remove('listening');
+      };
+
+      recognition.onend = () => {
+        isRecording = false;
+        chatMic.classList.remove('listening');
+      };
+
+      chatMic.addEventListener('click', () => {
+        if (isRecording) recognition.stop();
+        else recognition.start();
+      });
+    } else {
+      chatMic.style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>

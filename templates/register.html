@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - VedaRoots</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gd: #1a3a2a; --gm: #2d5a3d; --gl: #4a8c5c; --ga: #6bbf7a; --ga2: #a8ddb5;
+  --gold: #c9a84c; --gld: #e8c77a; --cream: #f5f0e8; --crd: #ede5d4;
+  --td: #1a2e20; --tm: #3d5c45; --tl: #7a9e82; --white: #fff;
+  --sh: 0 8px 32px rgba(26,58,42,.15); --shhv: 0 16px 48px rgba(26,58,42,.25);
+  --r: 16px; --rs: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--td);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(245,240,232,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(107,191,122,.2);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem;}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.logo-box{width:42px;height:42px;background:var(--gd);border-radius:12px;display:grid;place-items:center;font-size:1.3rem;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gd);}
+.logo-name span{color:var(--gold);}
+.nav-btn{background:var(--ga);color:#fff;border:none;padding:.5rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;margin-left:auto;}
+.nav-btn:hover{background:var(--gl);}
+
+/* ===== REGISTER CONTAINER ===== */
+.auth-container{width:100%;max-width:450px;padding:2rem;}
+.auth-card{background:var(--white);border-radius:20px;box-shadow:var(--shhv);overflow:hidden;}
+.auth-header{background:linear-gradient(135deg,var(--gd),var(--gm));padding:2.5rem;text-align:center;color:#fff;}
+.auth-emoji{font-size:3rem;margin-bottom:1rem;}
+.auth-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;margin-bottom:.5rem;}
+.auth-sub{font-size:.9rem;opacity:.9;}
+.auth-body{padding:2.5rem;}
+.form-group{margin-bottom:1.5rem;}
+.form-label{display:block;font-size:.85rem;font-weight:600;color:var(--tm);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;}
+.form-input{width:100%;padding:1rem 1.2rem;border:1.5px solid var(--crd);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;transition:all .2s;background:var(--cream);color:var(--td);}
+.form-input:focus{border-color:var(--ga);background:#fff;}
+.auth-submit{width:100%;background:var(--ga);color:#fff;border:none;padding:1rem 2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:1rem;}
+.auth-submit:hover{background:var(--gl);transform:translateY(-2px);}
+.auth-divider{text-align:center;margin:2rem 0;font-size:.85rem;color:var(--tl);position:relative;}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--crd);}
+.auth-divider::before{left:0;}
+.auth-divider::after{right:0;}
+.auth-footer{text-align:center;padding:1.5rem 2.5rem;background:var(--cream);border-top:1px solid var(--crd);}
+.auth-footer p{font-size:.85rem;color:var(--tl);}
+.auth-footer a{color:var(--ga);text-decoration:none;font-weight:600;}
+.auth-footer a:hover{text-decoration:underline;}
+
+/* ===== FLASH MESSAGES ===== */
+.flash-messages{position:fixed;top:80px;right:20px;z-index:1000;max-width:400px;}
+.flash-message{padding:1rem 1.5rem;border-radius:var(--rs);margin-bottom:.5rem;font-size:.9rem;font-weight:500;animation:slideIn 0.3s ease-out;}
+.flash-message.success{background:#d4edda;color:#155724;border-left:4px solid #28a745;}
+.flash-message.error{background:#f8d7da;color:#721c24;border-left:4px solid #dc3545;}
+.flash-message.info{background:#d1ecf1;color:#0c5460;border-left:4px solid #17a2b8;}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <a class="logo" href="/">
+    <div class="logo-box">🌿</div>
+    <span class="logo-name">Veda<span>Roots</span></span>
+  </a>
+  <button class="nav-btn" onclick="window.location.href='/'">← Back to Home</button>
+</nav>
+
+<!-- ===== FLASH MESSAGES ===== -->
+<div class="flash-messages" id="flashMessages"></div>
+
+<!-- ===== REGISTER CONTAINER ===== -->
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-emoji">🌱</div>
+      <h1 class="auth-title">Join VedaRoots</h1>
+      <p class="auth-sub">Create your account to explore Ayurvedic plants</p>
+    </div>
+    
+    <form class="auth-body" method="POST">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" name="full_name" class="form-input" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-input" placeholder="Choose a username" required>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" name="email" class="form-input" placeholder="you@example.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-input" placeholder="Create a password (min 6 chars)" required>
+      </div>
+      
+      <button type="submit" class="auth-submit">Create Account</button>
+    </form>
+    
+    <div class="auth-footer">
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Flash messages
+var flashMessages = {{ get_flashed_messages(with_categories=true) | safe }};
+var flashContainer = document.getElementById('flashMessages');
+
+if (flashMessages && flashMessages.length > 0) {
+  flashMessages.forEach(function(item) {
+    var category = item[0];
+    var message = item[1];
+    var flashDiv = document.createElement('div');
+    flashDiv.className = 'flash-message ' + category;
+    flashDiv.textContent = message;
+    flashContainer.appendChild(flashDiv);
+    
+    // Auto remove after 5 seconds
+    setTimeout(function() {
+      flashDiv.style.animation = 'slideIn 0.3s ease-out reverse';
+      setTimeout(function() { flashDiv.remove(); }, 300);
+    }, 5000);
+  });
+}
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+  var fullName = document.querySelector('input[name="full_name"]').value;
+  var username = document.querySelector('input[name="username"]').value;
+  var email = document.querySelector('input[name="email"]').value;
+  var password = document.querySelector('input[name="password"]').value;
+  
+  if (!fullName || !username || !email || !password) {
+    e.preventDefault();
+    alert('Please fill in all fields');
+    return false;
+  }
+  
+  if (password.length < 6) {
+    e.preventDefault();
+    alert('Password must be at least 6 characters');
+    return false;
+  }
+  
+  if (username.length < 3) {
+    e.preventDefault();
+    alert('Username must be at least 3 characters');
+    return false;
+  }
+});
+</script>
+</body>
+</html>

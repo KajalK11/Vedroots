@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plants Encyclopedia - VedaRoots</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gd: #1a3a2a; --gm: #2d5a3d; --gl: #4a8c5c; --ga: #6bbf7a; --ga2: #a8ddb5;
+  --gold: #c9a84c; --gld: #e8c77a; --cream: #f5f0e8; --crd: #ede5d4;
+  --td: #1a2e20; --tm: #3d5c45; --tl: #7a9e82; --white: #fff;
+  --sh: 0 8px 32px rgba(26,58,42,.15); --shhv: 0 16px 48px rgba(26,58,42,.25);
+  --r: 16px; --rs: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--td);overflow-x:hidden;}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(245,240,232,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(107,191,122,.2);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem;}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.logo-box{width:42px;height:42px;background:var(--gd);border-radius:12px;display:grid;place-items:center;font-size:1.3rem;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gd);}
+.logo-name span{color:var(--gold);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;margin-left:auto;}
+.nav-links a{text-decoration:none;color:var(--tm);font-size:.9rem;font-weight:500;transition:color .2s;padding:.3rem 0;}
+.nav-links a:hover,.nav-links a.active{color:var(--ga);}
+.nav-btn{background:var(--ga);color:#fff;border:none;padding:.5rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.nav-btn:hover{background:var(--gl);}
+
+/* ===== MAIN ===== */
+.main-container{padding:6rem 2rem 2rem;max-width:1400px;margin:0 auto;}
+.page-header{text-align:center;margin-bottom:3rem;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--gd);margin-bottom:.5rem;}
+.page-sub{color:var(--tl);font-size:1.1rem;max-width:600px;margin:0 auto;}
+
+/* ===== SEARCH & FILTERS ===== */
+.search-filter-section{background:var(--white);border-radius:var(--r);padding:2rem;box-shadow:var(--sh);margin-bottom:2rem;}
+.search-bar{display:flex;gap:1rem;margin-bottom:1.5rem;}
+.search-input{flex:1;padding:.8rem 1.2rem;border:1.5px solid var(--crd);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;background:var(--cream);}
+.search-input:focus{border-color:var(--ga);}
+.search-btn{background:var(--ga);color:#fff;border:none;padding:.8rem 1.5rem;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:background .2s;}
+.search-btn:hover{background:var(--gl);}
+.filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+.filter-group{display:flex;flex-direction:column;gap:.5rem;}
+.filter-label{font-size:.8rem;font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.06em;}
+.filter-select{padding:.6rem 1rem;border:1.5px solid var(--crd);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;background:var(--cream);}
+.filter-select:focus{border-color:var(--ga);}
+.filter-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;}
+.filter-tag{background:var(--ga);color:#fff;padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.filter-tag:hover{background:var(--gl);}
+.filter-tag.active{background:var(--gd);}
+
+/* ===== PLANT GRID ===== */
+.plants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-bottom:2rem;}
+.plant-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:all .25s;cursor:pointer;border:1px solid transparent;}
+.plant-card:hover{transform:translateY(-4px);box-shadow:var(--shhv);border-color:var(--ga2);}
+.plant-header{background:linear-gradient(135deg,var(--gd),var(--gm));padding:1.5rem;text-align:center;color:#fff;display:flex;align-items:center;gap:1rem;}
+.plant-image-container{flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.plant-image{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);}
+.plant-emoji{font-size:3rem;display:flex;align-items:center;justify-content:center;width:60px;height:60px;}
+.plant-info{text-align:left;flex:1;}
+.plant-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;margin-bottom:.3rem;}
+.plant-bot{font-size:.85rem;opacity:.8;font-style:italic;}
+.plant-body{padding:1.5rem;}
+.plant-tags{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+.plant-tag{font-size:.7rem;padding:.2rem .6rem;border-radius:50px;font-weight:600;}
+.plant-tag.a{background:#e8f5e9;color:#2e7d32;}
+.plant-tag.b{background:#fff8e1;color:#e65100;}
+.plant-tag.c{background:#e8eaf6;color:#283593;}
+.plant-uses{font-size:.88rem;color:var(--tm);line-height:1.6;}
+.plant-actions{display:flex;gap:.5rem;margin-top:1rem;}
+.plant-btn{flex:1;padding:.6rem;border:1.5px solid var(--crd);border-radius:var(--rs);background:var(--cream);font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--td);}
+.plant-btn:hover{border-color:var(--ga);background:rgba(107,191,122,.1);}
+.plant-btn.primary{background:var(--ga);color:#fff;border-color:var(--ga);}
+.plant-btn.primary:hover{background:var(--gl);}
+
+/* ===== PAGINATION ===== */
+.pagination{display:flex;justify-content:center;align-items:center;gap:.5rem;margin-top:2rem;}
+.page-btn{padding:.6rem 1rem;border:1.5px solid var(--crd);border-radius:var(--rs);background:var(--white);font-family:'DM Sans',sans-serif;font-size:.9rem;cursor:pointer;transition:all .2s;color:var(--td);}
+.page-btn:hover:not(:disabled){border-color:var(--ga);background:rgba(107,191,122,.1);}
+.page-btn.active{background:var(--ga);color:#fff;border-color:var(--ga);}
+.page-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ===== LOADING ===== */
+.loading{text-align:center;padding:3rem;color:var(--tl);}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--crd);border-top:3px solid var(--ga);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1rem;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(10,25,15,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:20px;width:100%;max-width:800px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.3);}
+.modal-header{background:linear-gradient(135deg,var(--gd),var(--gm));padding:2rem;text-align:center;color:#fff;position:relative;}
+.modal-close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;display:grid;place-items:center;font-size:1rem;}
+.modal-close:hover{background:rgba(255,255,255,.35);}
+.modal-body{padding:2rem;}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .plants-grid{grid-template-columns:1fr;}
+  .filter-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <a class="logo" href="/">
+    <div class="logo-box">🌿</div>
+    <span class="logo-name">Veda<span>Roots</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/index.html" class="active">Plants</a></li>
+    <li><a href="/3d-gallery.html">🎮 3D Gallery</a></li>
+    <li><a href="/chatbot.html">🤖 AI Assistant</a></li>
+    <li><a href="/#features">Features</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+  <button class="nav-btn" onclick="window.location.href='/'">← Back to Home</button>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="page-header">
+    <h1 class="page-title">🌿 Plant Encyclopedia</h1>
+    <p class="page-sub">Explore our comprehensive database of Ayurvedic medicinal plants</p>
+  </div>
+
+  <!-- ===== SEARCH & FILTERS ===== -->
+  <div class="search-filter-section">
+    <div class="search-bar">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search plants by name, botanical name, or uses...">
+      <button class="search-btn" onclick="searchPlants()">🔍 Search</button>
+    </div>
+    
+    <div class="filter-grid">
+      <div class="filter-group">
+        <label class="filter-label">AYUSH System</label>
+        <select class="filter-select" id="ayushFilter" onchange="filterPlants()">
+          <option value="">All Systems</option>
+          <option value="Ayurveda">Ayurveda</option>
+          <option value="Siddha">Siddha</option>
+          <option value="Unani">Unani</option>
+          <option value="Homeopathy">Homeopathy</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label class="filter-label">Plant Type</label>
+        <select class="filter-select" id="typeFilter" onchange="filterPlants()">
+          <option value="">All Types</option>
+          <option value="Herb">Herb</option>
+          <option value="Tree">Tree</option>
+          <option value="Shrub">Shrub</option>
+          <option value="Climber">Climber</option>
+          <option value="Succulent">Succulent</option>
+          <option value="Grass">Grass</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label class="filter-label">Therapeutic Category</label>
+        <select class="filter-select" id="categoryFilter" onchange="filterPlants()">
+          <option value="">All Categories</option>
+          <option value="Digestive">Digestive</option>
+          <option value="Respiratory">Respiratory</option>
+          <option value="Skin">Skin</option>
+          <option value="Immunity">Immunity</option>
+          <option value="Anti-inflammatory">Anti-inflammatory</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PLANTS GRID ===== -->
+  <div class="plants-grid" id="plantsGrid">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading plant database...</p>
+    </div>
+  </div>
+
+  <!-- ===== PAGINATION ===== -->
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<!-- ===== PLANT DETAIL MODAL ===== -->
+<div class="modal-overlay" id="plantModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal(event)">✕</button>
+      <div class="plant-emoji" id="modalEmoji"></div>
+      <h2 class="plant-name" id="modalName"></h2>
+      <p class="plant-bot" id="modalBot"></p>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+let allPlants = [];
+let filteredPlants = [];
+let currentPage = 1;
+const plantsPerPage = 12;
+
+// Load plants from API
+async function loadPlants() {
+  try {
+    const response = await fetch('/api/plants');
+    allPlants = await response.json();
+    filteredPlants = [...allPlants];
+    renderPlants();
+    renderPagination();
+  } catch (error) {
+    console.error('Error loading plants:', error);
+    document.getElementById('plantsGrid').innerHTML = '<p style="text-align:center;color:red;">Error loading plants. Please try again.</p>';
+  }
+}
+
+// Search plants
+function searchPlants() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  filteredPlants = allPlants.filter(plant => 
+    plant.name.toLowerCase().includes(query) ||
+    plant.botanical_name.toLowerCase().includes(query) ||
+    plant.uses.toLowerCase().includes(query) ||
+    plant.category.toLowerCase().includes(query)
+  );
+  currentPage = 1;
+  renderPlants();
+  renderPagination();
+}
+
+// Filter plants
+function filterPlants() {
+  const ayushFilter = document.getElementById('ayushFilter').value;
+  const typeFilter = document.getElementById('typeFilter').value;
+  const categoryFilter = document.getElementById('categoryFilter').value;
+  const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+  
+  filteredPlants = allPlants.filter(plant => {
+    const matchesSearch = !searchQuery || 
+      plant.name.toLowerCase().includes(searchQuery) ||
+      plant.botanical_name.toLowerCase().includes(searchQuery) ||
+      plant.uses.toLowerCase().includes(searchQuery) ||
+      plant.category.toLowerCase().includes(searchQuery);
+    
+    const matchesAyush = !ayushFilter || plant.ayush_system === ayushFilter;
+    const matchesType = !typeFilter || plant.plant_type === typeFilter;
+    const matchesCategory = !categoryFilter || plant.category === categoryFilter;
+    
+    return matchesSearch && matchesAyush && matchesType && matchesCategory;
+  });
+  
+  currentPage = 1;
+  renderPlants();
+  renderPagination();
+}
+
+// Render plants grid
+function renderPlants() {
+  const grid = document.getElementById('plantsGrid');
+  const start = (currentPage - 1) * plantsPerPage;
+  const end = start + plantsPerPage;
+  const plantsToShow = filteredPlants.slice(start, end);
+  
+  if (plantsToShow.length === 0) {
+    grid.innerHTML = '<p style="text-align:center;color:var(--tl);">No plants found matching your criteria.</p>';
+    return;
+  }
+  
+  grid.innerHTML = plantsToShow.map(plant => `
+    <div class="plant-card" onclick="showPlantDetail(${plant.id})">
+      <div class="plant-header">
+        <div class="plant-image-container">
+          ${plant.image && !plant.image.startsWith('🌿') && !plant.image.startsWith('🌰') ? 
+            `<img src="${plant.image}" alt="${plant.name}" class="plant-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+             <div class="plant-emoji" style="display:none;">${plant.emoji || '🌿'}</div>` :
+            `<div class="plant-emoji">${plant.emoji || '🌿'}</div>`
+          }
+        </div>
+        <div class="plant-info">
+          <h3 class="plant-name">${plant.name}</h3>
+          <p class="plant-bot">${plant.botanical_name}</p>
+        </div>
+      </div>
+      <div class="plant-body">
+        <div class="plant-tags">
+          <span class="plant-tag a">${plant.ayush_system}</span>
+          <span class="plant-tag b">${plant.plant_type}</span>
+          <span class="plant-tag c">${plant.category}</span>
+        </div>
+        <p class="plant-uses">${plant.uses.substring(0, 150)}${plant.uses.length > 150 ? '...' : ''}</p>
+        <div class="plant-actions">
+          <button class="plant-btn primary" onclick="showPlantDetail(${plant.id})">View Details</button>
+          <button class="plant-btn" onclick="view3DModel(${plant.id})">🎮 3D Model</button>
+          <button class="plant-btn" onclick="bookmarkPlant(${plant.id})" id="bookmark-btn-${plant.id}">🔖 Bookmark</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Render pagination
+function renderPagination() {
+  const totalPages = Math.ceil(filteredPlants.length / plantsPerPage);
+  const pagination = document.getElementById('pagination');
+  
+  if (totalPages <= 1) {
+    pagination.innerHTML = '';
+    return;
+  }
+  
+  let html = '';
+  
+  // Previous button
+  html += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>←</button>`;
+  
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+    } else if (i === currentPage - 3 || i === currentPage + 3) {
+      html += '<span style="padding: 0 0.5rem;">...</span>';
+    }
+  }
+  
+  // Next button
+  html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>→</button>`;
+  
+  pagination.innerHTML = html;
+}
+
+// Change page
+function changePage(page) {
+  const totalPages = Math.ceil(filteredPlants.length / plantsPerPage);
+  if (page < 1 || page > totalPages) return;
+  
+  currentPage = page;
+  renderPlants();
+  renderPagination();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Show plant detail modal
+function showPlantDetail(plantId) {
+  const plant = allPlants.find(p => p.id === plantId);
+  if (!plant) return;
+  
+  document.getElementById('modalEmoji').textContent = plant.emoji || '🌿';
+  document.getElementById('modalName').textContent = plant.name;
+  document.getElementById('modalBot').textContent = plant.botanical_name;
+  
+  document.getElementById('modalBody').innerHTML = `
+    <div class="plant-tags" style="margin-bottom: 1.5rem;">
+      <span class="plant-tag a">${plant.ayush_system}</span>
+      <span class="plant-tag b">${plant.plant_type}</span>
+      <span class="plant-tag c">${plant.category}</span>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+      <div style="background: var(--cream); padding: 1rem; border-radius: var(--rs); border-left: 3px solid var(--ga);">
+        <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--tl); font-weight: 600; margin-bottom: 0.3rem;">Family</div>
+        <div style="font-size: 0.9rem; color: var(--td); font-weight: 500;">${plant.family || 'Not specified'}</div>
+      </div>
+      <div style="background: var(--cream); padding: 1rem; border-radius: var(--rs); border-left: 3px solid var(--ga);">
+        <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--tl); font-weight: 600; margin-bottom: 0.3rem;">Common Names</div>
+        <div style="font-size: 0.9rem; color: var(--td); font-weight: 500;">${plant.common_names || plant.name}</div>
+      </div>
+      <div style="background: var(--cream); padding: 1rem; border-radius: var(--rs); border-left: 3px solid var(--ga);">
+        <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--tl); font-weight: 600; margin-bottom: 0.3rem;">Parts Used</div>
+        <div style="font-size: 0.9rem; color: var(--td); font-weight: 500;">${plant.parts_used || 'Not specified'}</div>
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem;">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--gd); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="width: 3px; height: 1em; background: var(--ga); border-radius: 2px; display: inline-block;"></span>
+        Medicinal Uses
+      </h3>
+      <p style="font-size: 0.95rem; color: var(--tm); line-height: 1.7;">${plant.uses}</p>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem;">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--gd); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="width: 3px; height: 1em; background: var(--ga); border-radius: 2px; display: inline-block;"></span>
+        Preparation & Dosage
+      </h3>
+      <p style="font-size: 0.95rem; color: var(--tm); line-height: 1.7;">${plant.preparation || 'Consult Ayurvedic practitioner for proper preparation and dosage.'}</p>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem;">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--gd); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="width: 3px; height: 1em; background: var(--ga); border-radius: 2px; display: inline-block;"></span>
+        Disease Tags
+      </h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        ${(plant.disease_tags || []).map(tag => `<span class="plant-tag a">${tag}</span>`).join('')}
+      </div>
+    </div>
+    
+    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+      <button class="plant-btn primary" style="flex: 1;" onclick="bookmarkPlant(${plant.id})">🔖 Bookmark Plant</button>
+      <button class="plant-btn" style="flex: 1;" onclick="sharePlant(${plant.id})">📤 Share</button>
+    </div>
+  `;
+  
+  document.getElementById('plantModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close modal
+function closeModal(event) {
+  if (event.target === document.getElementById('plantModal')) {
+    document.getElementById('plantModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// Bookmark plant (placeholder)
+function bookmarkPlant(plantId) {
+  const plant = allPlants.find(p => p.id === plantId);
+  if (plant) {
+    fetch('/api/bookmark/' + plantId, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showToast(`🔖 ${plant.name} bookmarked!`);
+        updateBookmarkButton(plantId, true);
+      } else {
+        showToast('⚠️ Already bookmarked or error occurred');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showToast('❌ Error bookmarking plant');
+    });
+  }
+}
+
+// View 3D model
+function view3DModel(plantId) {
+  window.open('/3d-viewer.html?id=' + plantId, '_blank');
+}
+
+// Update bookmark button state
+function updateBookmarkButton(plantId, isBookmarked) {
+  const btn = document.getElementById('bookmark-btn-' + plantId);
+  if (btn) {
+    if (isBookmarked) {
+      btn.textContent = '🔖 Bookmarked';
+      btn.style.background = 'var(--gd)';
+    } else {
+      btn.textContent = '🔖 Bookmark';
+      btn.style.background = 'var(--ga)';
+    }
+  }
+}
+
+// Check bookmark status on load
+function checkBookmarkStatus() {
+  // This would require authentication check in real implementation
+  // For now, we'll just set default state
+  document.querySelectorAll('[id^="bookmark-btn-"]').forEach(btn => {
+    btn.style.background = 'var(--ga)';
+  });
+}
+
+// Share plant (placeholder)
+function sharePlant(plantId) {
+  const plant = allPlants.find(p => p.id === plantId);
+  if (plant) {
+    const url = `${window.location.origin}/plants.html?id=${plantId}`;
+    navigator.clipboard.writeText(url);
+    showToast(`📤 Link copied for ${plant.name}!`);
+  }
+}
+
+// Show toast notification
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--gd);
+    color: white;
+    padding: 0.8rem 1.4rem;
+    border-radius: var(--rs);
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: var(--shhv);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 9999;
+    border-left: 3px solid var(--ga);
+  `;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.style.transform = 'translateY(0)';
+    toast.style.opacity = '1';
+  }, 100);
+  
+  setTimeout(() => {
+    toast.style.transform = 'translateY(20px)';
+    toast.style.opacity = '0';
+    setTimeout(() => document.body.removeChild(toast), 300);
+  }, 3000);
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  loadPlants();
+  
+  // Add search on Enter key
+  document.getElementById('searchInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      searchPlants();
+    }
+  });
+  
+  // Check for URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const plantId = urlParams.get('id');
+  if (plantId) {
+    setTimeout(() => showPlantDetail(parseInt(plantId)), 500);
+  }
+});
+</script>
+</body>
+</html>

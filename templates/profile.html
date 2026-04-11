@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - VedaRoots</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gd: #1a3a2a; --gm: #2d5a3d; --gl: #4a8c5c; --ga: #6bbf7a; --ga2: #a8ddb5;
+  --gold: #c9a84c; --gld: #e8c77a; --cream: #f5f0e8; --crd: #ede5d4;
+  --td: #1a2e20; --tm: #3d5c45; --tl: #7a9e82; --white: #fff;
+  --sh: 0 8px 32px rgba(26,58,42,.15); --shhv: 0 16px 48px rgba(26,58,42,.25);
+  --r: 16px; --rs: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--td);}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(245,240,232,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(107,191,122,.2);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem;}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.logo-box{width:42px;height:42px;background:var(--gd);border-radius:12px;display:grid;place-items:center;font-size:1.3rem;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gd);}
+.logo-name span{color:var(--gold);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;margin-left:auto;}
+.nav-links a{text-decoration:none;color:var(--tm);font-size:.9rem;font-weight:500;transition:color .2s;padding:.3rem 0;}
+.nav-links a:hover,.nav-links a.active{color:var(--ga);}
+.nav-btn{background:var(--ga);color:#fff;border:none;padding:.5rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.nav-btn:hover{background:var(--gl);}
+
+/* ===== PROFILE CONTAINER ===== */
+.profile-container{padding:6rem 2rem 2rem;max-width:1400px;margin:0 auto;}
+.profile-header{background:var(--white);border-radius:var(--r);padding:2rem;box-shadow:var(--sh);margin-bottom:2rem;display:flex;align-items:center;gap:2rem;}
+.profile-avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--gd),var(--gm));display:grid;place-items:center;font-size:3rem;color:#fff;}
+.profile-info{flex:1;}
+.profile-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gd);margin-bottom:.3rem;}
+.profile-email{color:var(--tl);font-size:.9rem;margin-bottom:.5rem;}
+.profile-stats{display:flex;gap:2rem;flex-wrap:wrap;}
+.stat-item{text-align:center;}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);}
+.stat-label{font-size:.8rem;color:var(--tl);text-transform:uppercase;letter-spacing:.06em;}
+
+/* ===== DASHBOARD GRID ===== */
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem;}
+.dashboard-card{background:var(--white);border-radius:var(--r);padding:1.5rem;box-shadow:var(--sh);}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--crd);}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gd);display:flex;align-items:center;gap:.5rem;}
+.card-action{background:var(--ga);color:#fff;border:none;padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.card-action:hover{background:var(--gl);}
+
+/* ===== BOOKMARKS ===== */
+.bookmark-list{display:flex;flex-direction:column;gap:1rem;max-height:400px;overflow-y:auto;}
+.bookmark-item{background:var(--cream);border-radius:var(--rs);padding:1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .2s;}
+.bookmark-item:hover{background:var(--ga2);transform:translateX(4px);}
+.bookmark-image-container{flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.bookmark-image{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,58,42,0.2);}
+.bookmark-emoji{font-size:1.5rem;display:flex;align-items:center;justify-content:center;width:40px;height:40px;}
+.bookmark-info{flex:1;}
+.bookmark-name{font-weight:600;color:var(--gd);margin-bottom:.2rem;}
+.bookmark-bot{font-size:.8rem;color:var(--tl);font-style:italic;}
+.bookmark-remove{background:transparent;border:none;color:var(--tl);cursor:pointer;font-size:1.2rem;padding:.5rem;border-radius:50%;transition:all .2s;}
+.bookmark-remove:hover{background:rgba(220,53,69,.1);color:#dc3545;}
+
+/* ===== QUIZ SCORES ===== */
+.quiz-scores-list{display:flex;flex-direction:column;gap:1rem;}
+.quiz-score-item{background:var(--cream);border-radius:var(--rs);padding:1rem;display:flex;justify-content:space-between;align-items:center;}
+.quiz-score-info{flex:1;}
+.quiz-score-text{font-weight:600;color:var(--gd);margin-bottom:.2rem;}
+.quiz-score-date{font-size:.8rem;color:var(--tl);}
+.quiz-score-percentage{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold);}
+
+/* ===== CHAT HISTORY ===== */
+.chat-history-list{display:flex;flex-direction:column;gap:1rem;max-height:400px;overflow-y:auto;}
+.chat-item{background:var(--cream);border-radius:var(--rs);padding:1rem;}
+.chat-question{font-weight:600;color:var(--gd);margin-bottom:.5rem;}
+.chat-answer{font-size:.9rem;color:var(--tm);line-height:1.5;}
+.chat-date{font-size:.75rem;color:var(--tl);margin-top:.5rem;text-align:right;}
+
+/* ===== EMPTY STATES ===== */
+.empty-state{text-align:center;padding:2rem;color:var(--tl);}
+.empty-emoji{font-size:3rem;margin-bottom:1rem;}
+.empty-text{font-size:.9rem;margin-bottom:1rem;}
+.empty-action{background:var(--ga);color:#fff;border:none;padding:.6rem 1.2rem;border-radius:50px;font-size:.85rem;font-weight:600;cursor:pointer;}
+.empty-action:hover{background:var(--gl);}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .profile-header{flex-direction:column;text-align:center;}
+  .dashboard-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <a class="logo" href="/">
+    <div class="logo-box">🌿</div>
+    <span class="logo-name">Veda<span>Roots</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/index.html">Plants</a></li>
+    <li><a href="/3d-gallery.html">🎮 3D Gallery</a></li>
+    <li><a href="/chatbot.html">🤖 AI Assistant</a></li>
+    <li><a href="/profile" class="active">Profile</a></li>
+  </ul>
+  <button class="nav-btn" onclick="window.location.href='/logout'">Logout</button>
+</nav>
+
+<!-- ===== PROFILE CONTAINER ===== -->
+<div class="profile-container">
+  <!-- ===== PROFILE HEADER ===== -->
+  <div class="profile-header">
+    <div class="profile-avatar">👤</div>
+    <div class="profile-info">
+      <h1 class="profile-name">{{ user.full_name or user.username }}</h1>
+      <p class="profile-email">{{ user.email }}</p>
+      <p class="profile-email">Member since: {{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'Recently' }}</p>
+    </div>
+    <div class="profile-stats">
+      <div class="stat-item">
+        <div class="stat-number">{{ bookmarks|length }}</div>
+        <div class="stat-label">Bookmarks</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ quiz_scores|length }}</div>
+        <div class="stat-label">Quiz Attempts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD GRID ===== -->
+  <div class="dashboard-grid">
+    <!-- BOOKMARKS CARD -->
+    <div class="dashboard-card">
+      <div class="card-header">
+        <h3 class="card-title">🔖 Bookmarked Plants</h3>
+        <button class="card-action" onclick="window.location.href='/plants.html'">Browse Plants</button>
+      </div>
+      {% if bookmarks %}
+        <div class="bookmark-list">
+          {% for bookmark in bookmarks[:5] %}
+          <div class="bookmark-item" onclick="window.location.href='/plants.html?id={{ bookmark.id }}'">
+            <div class="bookmark-image-container">
+              {% if bookmark.image and bookmark.image.startswith('/') %}
+                <img src="{{ bookmark.image }}" alt="{{ bookmark.name }}" class="bookmark-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="bookmark-emoji" style="display:none;">🌿</div>
+              {% else %}
+                <div class="bookmark-emoji">{{ bookmark.image or '🌿' }}</div>
+              {% endif %}
+            </div>
+            <div class="bookmark-info">
+              <div class="bookmark-name">{{ bookmark.name }}</div>
+              <div class="bookmark-bot">{{ bookmark.botanical_name }}</div>
+            </div>
+            <button class="bookmark-remove" onclick="removeBookmark({{ bookmark.id }}, event)">✕</button>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-emoji">🔖</div>
+          <p class="empty-text">No bookmarks yet</p>
+          <button class="empty-action" onclick="window.location.href='/plants.html'">Explore Plants</button>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- QUIZ SCORES CARD -->
+    <div class="dashboard-card">
+      <div class="card-header">
+        <h3 class="card-title">🧠 Quiz Scores</h3>
+        <button class="card-action" onclick="window.location.href='/#quiz'">Take Quiz</button>
+      </div>
+      {% if quiz_scores %}
+        <div class="quiz-scores-list">
+          {% for score in quiz_scores[:5] %}
+          <div class="quiz-score-item">
+            <div class="quiz-score-info">
+              <div class="quiz-score-text">{{ score.score }}/{{ score.total_questions }} correct</div>
+              <div class="quiz-score-date">{{ score.quiz_date.strftime('%b %d, %Y') if score.quiz_date else 'Recently' }}</div>
+            </div>
+            <div class="quiz-score-percentage">{{ "%.0f"|format(score.percentage) }}%</div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-emoji">🧠</div>
+          <p class="empty-text">No quiz attempts yet</p>
+          <button class="empty-action" onclick="window.location.href='/#quiz'">Start Quiz</button>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- CHAT HISTORY CARD -->
+    <div class="dashboard-card">
+      <div class="card-header">
+        <h3 class="card-title">💬 Chat History</h3>
+        <button class="card-action" onclick="window.location.href='/chatbot.html'">Chat Now</button>
+      </div>
+      {% if chat_history %}
+        <div class="chat-history-list">
+          {% for chat in chat_history[:5] %}
+          <div class="chat-item">
+            <div class="chat-question">Q: {{ chat.message[:50] }}{% if chat.message|length > 50 %}...{% endif %}</div>
+            <div class="chat-answer">A: {{ chat.response[:100] }}{% if chat.response|length > 100 %}...{% endif %}</div>
+            <div class="chat-date">{{ chat.created_at.strftime('%b %d, %Y %I:%M %p') if chat.created_at else 'Recently' }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-emoji">💬</div>
+          <p class="empty-text">No chat history yet</p>
+          <button class="empty-action" onclick="window.location.href='/chatbot.html'">Start Chatting</button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+function removeBookmark(plantId, event) {
+  event.stopPropagation();
+  
+  if (confirm('Remove this plant from bookmarks?')) {
+    fetch('/api/bookmark/' + plantId, {
+      method: 'DELETE'
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      if (data.success) {
+        location.reload();
+      } else {
+        alert('Error removing bookmark');
+      }
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+      alert('Error removing bookmark');
+    });
+  }
+}
+</script>
+</body>
+</html>
